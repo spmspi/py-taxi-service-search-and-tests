@@ -23,16 +23,12 @@ class PrivateTaxiTest(TestCase):
             username="test",
             email="test@test.tes",
             password="Test123",
-            license_number="TES12345"
+            license_number="TES12345",
         )
         self.client.force_login(self.user)
 
-        self.man1 = Manufacturer.objects.create(
-            name="Toyota",
-            country="Japan")
-        self.man2 = Manufacturer.objects.create(
-            name="BMW",
-            country="Germany")
+        self.man1 = Manufacturer.objects.create(name="Toyota", country="Japan")
+        self.man2 = Manufacturer.objects.create(name="BMW", country="Germany")
 
     def test_driver_list(self):
         response = self.client.get(URL_DRIVER_URL)
