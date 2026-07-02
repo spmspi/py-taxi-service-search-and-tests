@@ -27,8 +27,12 @@ class PrivateTaxiTest(TestCase):
             license_number="TES12345",
         )
         self.client.force_login(self.user)
-        self.man1 = Manufacturer.objects.create(name="Honda", country="Japan")
-        self.man2 = Manufacturer.objects.create(name="Audi", country="Germany")
+        self.man1 = Manufacturer.objects.create(
+            name="Honda",
+            country="Japan")
+        self.man2 = Manufacturer.objects.create(
+            name="Audi",
+            country="Germany")
 
     def test_driver_list(self):
         response = self.client.get(URL_DRIVER_URL)
@@ -41,15 +45,21 @@ class PrivateTaxiTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_search_manufacturer(self):
-        man1 = Manufacturer.objects.create(name="Toyota", country="Japan")
+        man1 = Manufacturer.objects.create(
+            name="Toyota",
+            country="Japan")
         man2 = Manufacturer.objects.create(name="BMW", country="Germany")
         response = self.client.get(URL_MANUFACTURER_URL, {"name": "toy"})
         self.assertIn(man1, response.context["manufacturer_list"])
         self.assertNotIn(man2, response.context["manufacturer_list"])
 
     def test_search_car(self):
-        car1 = Car.objects.create(model="Prius", manufacturer=self.man1)
-        car2 = Car.objects.create(model="X5M60I", manufacturer=self.man2)
+        car1 = Car.objects.create(
+            model="Prius",
+            manufacturer=self.man1)
+        car2 = Car.objects.create(
+            model="X5M60I",
+            manufacturer=self.man2)
         response = self.client.get(URL_CAR_URL, {"model": "p"})
         self.assertIn(car1, response.context["car_list"])
         self.assertNotIn(car2, response.context["car_list"])
