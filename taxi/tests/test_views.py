@@ -68,5 +68,3 @@ class PrivateTaxiTest(TestCase):
         response = self.client.get(URL_DRIVER_URL, {"username": "Jo"})
         self.assertIn(driver1, response.context["driver_list"])
         self.assertNotIn(driver2, response.context["driver_list"])
-
-
